@@ -51,8 +51,8 @@ export class CandidateListPage implements OnInit {
   militaryStatusFilter: string = '';
   noticePeriodFilter: string = '';
 
-  militaryStatusOptions = ['', 'Completed', 'Exempted', 'Deferred'];
-  noticePeriodOptions = ['', 'No Notice', '2 Weeks', '1 Month', '2 Months'];
+  militaryStatusOptions = ['All', 'Completed', 'Exempted', 'Deferred'];
+  noticePeriodOptions = ['All', 'No Notice', '2 Weeks', '1 Month', '2 Months'];
 
   constructor(private candidateService: CandidateService) { }
 
@@ -104,12 +104,12 @@ export class CandidateListPage implements OnInit {
           }
           
           // Askerlik durumu filtresi
-          if (this.militaryStatusFilter && candidate.militaryStatus !== this.militaryStatusFilter) {
+          if (this.militaryStatusFilter && this.militaryStatusFilter !== 'All' && candidate.militaryStatus !== this.militaryStatusFilter) {
             return false;
           }
           
           // İhbar süresi filtresi
-          if (this.noticePeriodFilter && candidate.noticePeriod !== this.noticePeriodFilter) {
+          if (this.noticePeriodFilter && this.noticePeriodFilter !== 'All' && candidate.noticePeriod !== this.noticePeriodFilter) {
             return false;
           }
           

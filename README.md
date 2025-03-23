@@ -21,17 +21,13 @@ The project has two main parts:
 
 ### Backend
 
-- Java
 - Spring Boot
-- Spring Data JPA
 - H2 Database (for development)
-- Jakarta Validation
 
 ### Frontend
 
 - Angular
 - Ionic Framework
-- Angular Reactive Forms
 
 ## Setup and Running
 
@@ -99,6 +95,7 @@ You can access the H2 Console at `http://localhost:8080/h2-console`.
 | DELETE| /api/candidates/{id} | Delete a candidate |
 | POST  | /api/candidates/{id}/cv | Upload a candidate's CV |
 | GET   | /api/candidates/test_data | Create test data |
+| GET   | /api/candidates/ping | Check if the backend server is running
 
 ## Sample Candidate Data
 
@@ -109,7 +106,7 @@ The system starts with 10 test candidates with the following fields:
 - lastName: Last name
 - position: Applied position
 - militaryStatus: Military status (Completed/Exempted/Deferred)
-- noticePeriod: Notice period
+- noticePeriod: Notice period (No Notice/2 Weeks/1 Month/2 Months)
 - phone: Phone number
 - email: Email address
 - cv: CV filename

@@ -1,0 +1,16 @@
+.error-message {
+    color: var(--ion-color-danger);
+    padding: 0.4rem 0 0.4rem 1rem;
+    font-size: 0.8rem;
+}
+
+.file-input-container {
+  display: flex;
+  align-items: center;
+  padding: 8px 0;
+  
+  .file-name {
+    margin-left: 12px;
+    font-size: 14px;
+  }
+}

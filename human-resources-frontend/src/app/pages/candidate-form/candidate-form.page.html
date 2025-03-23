@@ -1,0 +1,98 @@
+<ion-header>
+  <ion-toolbar color="primary">
+    <ion-buttons slot="start">
+      <ion-back-button defaultHref="/candidate-list"></ion-back-button>
+    </ion-buttons>
+    <ion-title>{{ isEditMode ? 'Edit Candidate' : 'Add Candidate' }}</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content class="ion-padding">
+  <form [formGroup]="candidateForm" (ngSubmit)="onSubmit()">
+    <ion-item>
+      <ion-label position="floating">First Name</ion-label>
+      <ion-input type="text" formControlName="firstName"></ion-input>
+    </ion-item>
+    <div *ngIf="candidateForm.get('firstName')?.invalid && candidateForm.get('firstName')?.touched" class="error-message">
+      First name is required
+    </div>
+
+    <ion-item>
+      <ion-label position="floating">Last Name</ion-label>
+      <ion-input type="text" formControlName="lastName"></ion-input>
+    </ion-item>
+    <div *ngIf="candidateForm.get('lastName')?.invalid && candidateForm.get('lastName')?.touched" class="error-message">
+      Last name is required
+    </div>
+
+    <ion-item>
+      <ion-label position="floating">Position</ion-label>
+      <ion-input type="text" formControlName="position"></ion-input>
+    </ion-item>
+    <div *ngIf="candidateForm.get('position')?.invalid && candidateForm.get('position')?.touched" class="error-message">
+      Position is required
+    </div>
+
+    <ion-item>
+      <ion-label position="floating">Military Status</ion-label>
+      <ion-select formControlName="militaryStatus">
+        <ion-select-option *ngFor="let option of militaryStatusOptions" [value]="option">
+          {{ option }}
+        </ion-select-option>
+      </ion-select>
+    </ion-item>
+    <div *ngIf="candidateForm.get('militaryStatus')?.invalid && candidateForm.get('militaryStatus')?.touched" class="error-message">
+      Military status is required
+    </div>
+
+    <ion-item>
+      <ion-label position="floating">Notice Period</ion-label>
+      <ion-select formControlName="noticePeriod">
+        <ion-select-option *ngFor="let option of noticePeriodOptions" [value]="option">
+          {{ option }}
+        </ion-select-option>
+      </ion-select>
+    </ion-item>
+    <div *ngIf="candidateForm.get('noticePeriod')?.invalid && candidateForm.get('noticePeriod')?.touched" class="error-message">
+      Notice period is required
+    </div>
+
+    <ion-item>
+      <ion-label position="floating">Phone</ion-label>
+      <ion-input type="tel" formControlName="phone"></ion-input>
+    </ion-item>
+    <div *ngIf="candidateForm.get('phone')?.invalid && candidateForm.get('phone')?.touched" class="error-message">
+      Phone is required
+    </div>
+
+    <ion-item>
+      <ion-label position="floating">Email</ion-label>
+      <ion-input type="email" formControlName="email"></ion-input>
+    </ion-item>
+    <div *ngIf="candidateForm.get('email')?.errors?.['required'] && candidateForm.get('email')?.touched" class="error-message">
+      Email is required
+    </div>
+    <div *ngIf="candidateForm.get('email')?.errors?.['email'] && candidateForm.get('email')?.touched" class="error-message">
+      Please enter a valid email
+    </div>
+
+    <ion-item>
+      <ion-label position="stacked">CV</ion-label>
+      <div class="file-input-container">
+        <input type="file" #fileInput id="cv-upload" accept=".pdf,.doc,.docx" 
+               (change)="onFileSelected($event)" style="display:none">
+        <ion-button type="button" (click)="fileInput.click()">
+          Select File
+        </ion-button>
+        <span *ngIf="selectedFileName" class="file-name">{{ selectedFileName }}</span>
+        <span *ngIf="!selectedFileName" class="file-name">No file selected</span>
+      </div>
+    </ion-item>
+    
+    <div class="ion-padding">
+      <ion-button expand="block" type="submit" [disabled]="candidateForm.invalid">
+        {{ isEditMode ? 'Update' : 'Save' }}
+      </ion-button>
+    </div>
+  </form>
+</ion-content>

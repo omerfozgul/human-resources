@@ -1,0 +1,80 @@
+<ion-header>
+  <ion-toolbar color="primary">
+    <ion-title>Candidates</ion-title>
+    <ion-button routerLink="/candidates/new" color="light" slot="end">
+      <ion-icon slot="icon-only" [icon]="addOutlineIcon"></ion-icon>
+    </ion-button>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ion-card>
+    <ion-card-header>
+      <ion-card-title>Filter Candidates</ion-card-title>
+    </ion-card-header>
+    <ion-card-content>
+      <ion-grid>
+        <ion-row>
+          <ion-col size="12" size-md="4">
+            <ion-item>
+              <ion-label position="floating">Position</ion-label>
+              <ion-input [(ngModel)]="positionFilter"></ion-input>
+            </ion-item>
+          </ion-col>
+          <ion-col size="12" size-md="4">
+            <ion-item>
+              <ion-label position="floating">Military Status</ion-label>
+              <ion-select [(ngModel)]="militaryStatusFilter">
+                <ion-select-option *ngFor="let option of militaryStatusOptions" [value]="option">
+                  {{ option ? option : 'All' }}
+                </ion-select-option>
+              </ion-select>
+            </ion-item>
+          </ion-col>
+          <ion-col size="12" size-md="4">
+            <ion-item>
+              <ion-label position="floating">Notice Period</ion-label>
+              <ion-select [(ngModel)]="noticePeriodFilter">
+                <ion-select-option *ngFor="let option of noticePeriodOptions" [value]="option">
+                  {{ option ? option : 'All' }}
+                </ion-select-option>
+              </ion-select>
+            </ion-item>
+          </ion-col>
+        </ion-row>
+        <ion-row>
+          <ion-col>
+            <ion-button expand="block" (click)="applyFilters()">Apply Filters</ion-button>
+          </ion-col>
+          <ion-col>
+            <ion-button expand="block" fill="outline" (click)="clearFilters()">Clear Filters</ion-button>
+          </ion-col>
+        </ion-row>
+      </ion-grid>
+    </ion-card-content>
+  </ion-card>
+
+  <ion-list>
+    <ion-item *ngFor="let candidate of candidates">
+      <ion-label>
+        <h2>{{ candidate.firstName }} {{ candidate.lastName }}</h2>
+        <p>Position: {{ candidate.position }}</p>
+        <p>Email: {{ candidate.email }}</p>
+      </ion-label>
+      <ion-buttons slot="end">
+        <ion-button [routerLink]="['/candidates/edit', candidate.id]">
+          <ion-icon slot="icon-only" [icon]="createOutlineIcon"></ion-icon>
+        </ion-button>
+        <ion-button (click)="deleteCandidate(candidate.id)">
+          <ion-icon slot="icon-only" [icon]="trashOutlineIcon" color="danger"></ion-icon>
+        </ion-button>
+      </ion-buttons>
+    </ion-item>
+  </ion-list>
+
+  <ion-card *ngIf="candidates.length === 0">
+    <ion-card-content>
+      No candidates found
+    </ion-card-content>
+  </ion-card>
+</ion-content>
